@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:serviceapp/design_course/home_design_course.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utilities/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -83,7 +84,13 @@ print("aajahdcbhfbhbcfhbchfbvhfbv");
            );
          },
        );
-     // Navigator.pushNamed(context, "/");
+      Navigator.push<dynamic>(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => DesignCourseHomeScreen(),
+        ),
+      );
+
     });
 
 

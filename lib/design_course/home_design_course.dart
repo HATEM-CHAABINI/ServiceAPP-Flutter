@@ -1,8 +1,7 @@
-import 'package:best_flutter_ui_templates/design_course/category_list_view.dart';
-import 'package:best_flutter_ui_templates/design_course/course_info_screen.dart';
-import 'package:best_flutter_ui_templates/design_course/popular_course_list_view.dart';
-import 'package:best_flutter_ui_templates/main.dart';
+
 import 'package:flutter/material.dart';
+import 'package:serviceapp/custom_drawer/main.dart';
+import 'package:serviceapp/design_course/popular_course_list_view.dart';
 import 'design_course_app_theme.dart';
 
 class DesignCourseHomeScreen extends StatefulWidget {

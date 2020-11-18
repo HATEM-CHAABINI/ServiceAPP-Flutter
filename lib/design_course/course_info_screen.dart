@@ -1,5 +1,6 @@
-import 'package:best_flutter_ui_templates/metiers/post_model.dart';
 import 'package:flutter/material.dart';
+import 'package:serviceapp/Users/post_model.dart';
+import 'package:serviceapp/custom_drawer/main.dart';
 import '../hotel_booking/calendar_popup_view.dart';
 import '../main.dart';
 import 'design_course_app_theme.dart';

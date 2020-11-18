@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:best_flutter_ui_templates/design_course/design_course_app_theme.dart';
-import 'package:best_flutter_ui_templates/design_course/models/category.dart';
-import 'package:best_flutter_ui_templates/main.dart';
-import 'package:best_flutter_ui_templates/metiers/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:serviceapp/Users/post_model.dart';
+import 'package:serviceapp/custom_drawer/main.dart';
 
 import 'course_info_screen.dart';
+import 'design_course_app_theme.dart';
 
 class PopularCourseListView extends StatefulWidget {
   const PopularCourseListView({Key key, this.callBack,this.metier}) : super(key: key);

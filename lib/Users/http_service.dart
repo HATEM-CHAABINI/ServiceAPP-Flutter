@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:best_flutter_ui_templates/metiers/post_model.dart';
 import 'package:http/http.dart';
+import 'package:serviceapp/Users/post_model.dart';
 
 
 class HttpService {

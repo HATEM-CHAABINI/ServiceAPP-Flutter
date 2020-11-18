@@ -1,5 +1,5 @@
-import 'package:best_flutter_ui_templates/design_course/home_design_course.dart';
 import 'package:flutter/widgets.dart';
+import 'package:serviceapp/design_course/home_design_course.dart';
 
 class HomeList {
   HomeList({
