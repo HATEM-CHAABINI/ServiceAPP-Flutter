@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:serviceapp/Users/post_model.dart';
 import 'package:serviceapp/custom_drawer/main.dart';
+import 'package:serviceapp/design_course/design_course_app_theme.dart';
+
 import '../hotel_booking/calendar_popup_view.dart';
 import '../main.dart';
-import 'design_course_app_theme.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'metier/post_model.dart';
+
 
 class CourseInfoScreen extends StatefulWidget {
 
   CourseInfoScreen({Key key, this.category}) : super(key: key);
-  final User category;
+  final service category;
 
   @override
   _CourseInfoScreenState createState() => _CourseInfoScreenState();
@@ -67,7 +70,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
   Widget build(BuildContext context) {
     final double tempHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).size.width / 1.2) +
-        24.0;
+        200.0;
     return Container(
       color: DesignCourseAppTheme.nearlyWhite,
       child: Scaffold(
@@ -179,6 +182,28 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                   getTimeBoxUI('Ville', '${widget.category.ville}'),
                                   getTimeBoxUI('Specialité', '${widget.category.metier}'),
                                   getTimeBoxUI('Tel', '${widget.category.numtel}'),
+
+                                ],
+                              ),
+                            ),
+                          ),
+                          AnimatedOpacity(
+                            duration: const Duration(milliseconds: 500),
+                            opacity: opacity1,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Row(
+                                children: <Widget>[
+
+                                  Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(left: 16, right: 16),
+                                        child: getTimeBoxUI('Commentaire', '${widget.category.commentaire}'),
+
+
+                                      )
+
+                                  ),
                                 ],
                               ),
                             ),
@@ -238,7 +263,56 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
+                                  Expanded(
+                                    child: InkWell(
+                                  child: Container(
+                                    width: 48,
+                                    height: 48,
+                                    child: Container(
+                                      height: 48,
+                                      decoration: BoxDecoration(
+                                        color: DesignCourseAppTheme.nearlyBlue,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(16.0),
+                                        ),
+                                        boxShadow: <BoxShadow>[
+                                          BoxShadow(
+                                              color: DesignCourseAppTheme
+                                                  .nearlyBlue
+                                                  .withOpacity(0.5),
+                                              offset: const Offset(1.1, 1.1),
+                                              blurRadius: 10.0),
+                                        ],
+                                      ),
+                                      child: Center(
 
+                                        child: Text(
+                                          'Confirmer',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            letterSpacing: 0.0,
+                                            color: DesignCourseAppTheme
+                                                .nearlyWhite,
+                                          ),
+                                        ),
+
+                                      ),
+
+                                    ),
+                              ),
+                                      onTap: () {
+                                        ConfirmerRDV(widget.category.idS,commentaire.text,"con");
+
+                                        print("con");
+                                      },
+
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
 
                                   Expanded(
                                     child: InkWell(
@@ -261,7 +335,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                       child: Center(
 
                                         child: Text(
-                                          'Réserver',
+                                          'Refuser',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
@@ -277,14 +351,13 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     ),
 
                                       onTap: () {
-                                        FocusScope.of(context).requestFocus(FocusNode());
-                                        // setState(() {
-                                        //   isDatePopupOpen = true;
-                                        // });
-                                        showDemoDialog(context: context);
+                                        ConfirmerRDV(widget.category.idS,commentaire.text,"ref");
+                                        print("ref");
+
                                       },
                                     ),
-                                  )
+                                  ),
+
                                 ],
                               ),
 
@@ -332,27 +405,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
   }
 
 
-  void showDemoDialog({BuildContext context}) {
-    showDialog<dynamic>(
-      context: context,
-      builder: (BuildContext context) => CalendarPopupView(
-        barrierDismissible: true,
-        minimumDate: DateTime.now(),
-        //  maximumDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 10),
-        initialStartDate: startDate,
-        onApplyClick: (DateTime startData) {
-          setState(() {
-            if (startData != null ) {
-              startDate = startData;
-            }
-          });
-        },
-        onCancelClick: () {},
-        idoffreur: widget.category.id,
-        commentaire: commentaire.text,
-      ),
-    );
-  }
+
 
   Widget getTimeBoxUI(String text1, String txt2) {
     return Padding(
@@ -400,5 +453,19 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
         ),
       ),
     );
+  }
+}
+Future ConfirmerRDV(int idS,String com,String conf) async {
+  if (conf == "con") {
+    http.get("http://10.0.2.2:3000/Confirmer/" + idS.toString() + "/" + com)
+        .then((http.Response response) {
+      print(response.body);
+    });
+  }
+  else {
+    http.get("http://10.0.2.2:3000/Refuser/" + idS.toString() + "/" + com)
+        .then((http.Response response) {
+      print(response.body);
+    });
   }
 }
